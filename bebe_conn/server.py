@@ -35,7 +35,7 @@ class BebeServer:
         }
         
         # Creează directorul pentru screenshot-uri
-        self.screenshots_dir = os.path.join(os.path.dirname(__file__), "..", "screenshots")
+        self.screenshots_dir = os.path.join(os.path.dirname(__file__), "..", "..", "screenshots")
         self.screenshots_dir = os.path.abspath(self.screenshots_dir)
         os.makedirs(self.screenshots_dir, exist_ok=True)
         print(f"📁 Director screenshots: {self.screenshots_dir}")
@@ -196,8 +196,10 @@ class BebeServer:
                     # Salvează screenshot-ul real
                     screenshot_data = base64.b64decode(data['screenshot'])
                     filepath = os.path.join(self.screenshots_dir, filename)
+                    print(f"💾 Salvez screenshot în: {filepath}")
                     with open(filepath, 'wb') as f:
                         f.write(screenshot_data)
+                    print(f"✅ Screenshot salvat: {filename}")
                     
                     self.data_store['screenshots'].append(filename)
                     self.data_store['latest_screenshot'] = filename
@@ -221,10 +223,13 @@ class BebeServer:
         def get_screenshot(filename):
             try:
                 filepath = os.path.join(self.screenshots_dir, filename)
+                print(f"🔍 Caut screenshot în: {filepath}")
                 
                 if os.path.exists(filepath):
+                    print(f"✅ Găsit screenshot: {filename}")
                     return send_file(filepath, mimetype='image/png')
                 else:
+                    print(f"❌ Screenshot nu există: {filepath}")
                     return "Screenshot nu a fost găsit", 404
                     
             except Exception as e:
