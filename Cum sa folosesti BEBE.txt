@@ -1,0 +1,17 @@
+## 🚀 **Cum să folosești:**
+
+```CMD
+# Test rapid
+python test_library.py
+
+# Pornire locală
+bebe-conn start
+
+# Pornire cu ngrok
+bebe-conn start --ngrok
+
+# Demo
+python demo.py
+```
+
+La final testezi in chrome:  http://localhost:5000/
